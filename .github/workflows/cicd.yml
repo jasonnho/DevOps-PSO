@@ -15,6 +15,6 @@ jobs:
       - name: Set environment
         run: npm install
       - name: BuildApp
-        run: npm build
+        run: npm run build
       - name: runTest
-        run: npm test
+        run: npm run test
