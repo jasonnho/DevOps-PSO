@@ -16,14 +16,14 @@ const store = new Store();
 
 let notificationSettings = {
   resetNotification: store.get('reset') || true,
-  reminderNotification: store.get('reminder') || 'hour',
+  reminderNotification: store.get('reminder') || 'hour', // Default reminder
 };
 
 let mainWindow = {
   show: () => {
     console.log('show');
   },
-}; // temp object while app loads
+}; // Temporary object while app loads
 let willQuit = false;
 
 function createWindow() {
@@ -74,7 +74,6 @@ function menuSetup() {
           type: 'separator',
         },
         {
-          /* For debugging */
           label: 'Dev tools',
           click: () => {
             mainWindow.webContents.openDevTools();
@@ -104,14 +103,6 @@ function menuSetup() {
     {
       label: 'View',
       submenu: [
-        // {
-        //   label: "Light mode",
-        //   type: "checkbox",
-        //   checked: false,
-        //   click: e => {
-        //     mainWindow.isLightMode = e.checked;
-        //   }
-        // },
         {
           type: 'separator',
         },
@@ -141,17 +132,17 @@ function menuSetup() {
           label: 'Reminder notifications',
           submenu: [
             {
-              label: 'Never',
+              label: 'Every 1 minute',
               type: 'radio',
-              checked: store.get('reminder') === 'never',
+              checked: store.get('reminder') === 'oneminute',
               click: (e) => {
                 if (e.checked) {
-                  notificationSettings.reminderNotification = 'never';
+                  notificationSettings.reminderNotification = 'oneminute';
                   mainWindow.webContents.send(
                     'notificationSettingsChange',
                     notificationSettings
                   );
-                  store.set('reminder', 'never');
+                  store.set('reminder', 'oneminute');
                 }
               },
             },
@@ -215,6 +206,21 @@ function menuSetup() {
                 }
               },
             },
+            {
+              label: 'Every 12 hours',
+              type: 'radio',
+              checked: store.get('reminder') === '12hours',
+              click: (e) => {
+                if (e.checked) {
+                  notificationSettings.reminderNotification = '12hours';
+                  mainWindow.webContents.send(
+                    'notificationSettingsChange',
+                    notificationSettings
+                  );
+                  store.set('reminder', '12hours');
+                }
+              },
+            },
           ],
         },
         {
@@ -224,10 +230,6 @@ function menuSetup() {
               title: 'todometer reminder!',
               body: "Here's an example todometer notification!",
               silent: false,
-              sound: path.join(
-                app.getAppPath(),
-                'assets/notification/pingyping.wav'
-              ),
             });
             exNotification.show();
           },
@@ -237,6 +239,25 @@ function menuSetup() {
   ];
   const menu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(menu);
+}
+
+function getIntervalMilliseconds(interval) {
+  switch (interval) {
+    case 'oneminute':
+      return 1 * 60 * 1000;
+    case 'fiveminutes':
+      return 5 * 60 * 1000;
+    case 'quarterhour':
+      return 15 * 60 * 1000;
+    case 'halfhour':
+      return 30 * 60 * 1000;
+    case 'hour':
+      return 60 * 60 * 1000;
+    case '12hours':
+      return 12 * 60 * 60 * 1000;
+    default:
+      return 0;
+  }
 }
 
 app.on('ready', () => {
@@ -250,12 +271,20 @@ app.on('ready', () => {
     );
   });
 
-  powerMonitor.on('resume', () => 
+  powerMonitor.on('resume', () => {
     mainWindow.reload();
   });
 
-  // On Mac, this will hide the window
-  // On Windows, the app will close and quit
+  setInterval(() => {
+    if (notificationSettings.reminderNotification !== 'never') {
+      new Notification({
+        title: 'Reminder!',
+        body: `This is your reminder.`,
+        silent: false,
+      }).show();
+    }
+  }, getIntervalMilliseconds(notificationSettings.reminderNotification));
+
   mainWindow.on('close', (e) => {
     if (willQuit || process.platform === 'win32') {
       mainWindow = null;
