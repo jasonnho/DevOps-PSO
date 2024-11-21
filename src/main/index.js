@@ -215,21 +215,6 @@ function menuSetup() {
 								}
 							},
 						},
-						{
-							label: "Every two hours",
-							type: "radio",
-							checked: store.get("reminder") === "twohours",
-							click: (e) => {
-								if (e.checked) {
-									notificationSettings.reminderNotification = "twohours";
-									mainWindow.webContents.send(
-										"notificationSettingsChange",
-										notificationSettings
-									);
-									store.set("reminder", "twohours"
-								}
-							},
-						},
 					],
 				},
 				{
