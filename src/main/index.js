@@ -205,22 +205,7 @@ function menuSetup() {
                   store.set('reminder', 'hour');
                 }
               },
-            },
-            {
-              label: 'Every 12 hours',
-              type: 'radio',
-              checked: store.get('reminder') === '12hours',
-              click: (e) => {
-                if (e.checked) {
-                  notificationSettings.reminderNotification = '12hours';
-                  mainWindow.webContents.send(
-                    'notificationSettingsChange',
-                    notificationSettings
-                  );
-                  store.set('reminder', '12hours');
-                }
-              },
-            },
+            }
           ],
         },
         {
