@@ -52,7 +52,7 @@ function menuSetup() {
       label: 'todometer',
       submenu: [
         {
-          label: 'About',
+          label: 'Jason',
           click: () => {
             dialog.showMessageBox(mainWindow, {
               type: 'info',
