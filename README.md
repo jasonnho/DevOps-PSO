@@ -1,9 +1,9 @@
-## Development
+## Todometer
 
 - Clone the repo:
 
 ```bash
-$ git clone https://github.com/cassidoo/todometer.git
+$ git clone https://github.com/jasonnho/DevOps-PSO.git
 ```
 
 - Go to the project directory and install dependencies:
