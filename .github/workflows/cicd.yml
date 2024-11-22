@@ -2,7 +2,7 @@ name: Initial configuration
 on:
   push:
     branches:
-      - PipelineTest
+      - Main
 
 jobs:
   build:
