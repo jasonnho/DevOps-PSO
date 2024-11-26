@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:22
 
 # Install dependencies needed for Electron
 RUN apt-get update && apt-get install \
