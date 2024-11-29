@@ -28,6 +28,6 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Pull image from docker hub
         run: docker pull jasonnho/devops-pso:latest
-      - name: Run Jest tests
+      - name: Run vitest testing
         run: |
           docker run --rm jasonnho/devops-pso:latest sh -c "npm install && npm test"
