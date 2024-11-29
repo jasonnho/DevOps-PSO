@@ -43,7 +43,7 @@
 		"build:main": "cd ./src/main && vite build",
 		"build:preload": "cd ./src/preload && vite build",
 		"build:renderer": "cd ./src/renderer && vite build",
-		"test": "cd ./src/renderer && vitest src",
+		"test": "cd ./src/renderer && vitest --run",
 		"postinstall": "electron-builder install-app-deps && npm run update-vendors",
 		"pre-electron-pack": "npm run build",
 		"electron-pack": "electron-builder build --dir --windows --linux --mac"
