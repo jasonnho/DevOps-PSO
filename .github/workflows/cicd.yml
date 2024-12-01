@@ -89,7 +89,7 @@ jobs:
 
       - name: Deploy to EC22
         run: |
-          ssh -o StrictHostKeyChecking=no -i "ec2-key.pem" ubuntu@ec2-3-27-126-61.ap-southeast-2.compute.amazonaws.com << 'EOF'
+          ssh -i "key-pair-devopspso.pem" ubuntu@ec2-3-27-78-30.ap-southeast-2.compute.amazonaws.com << 'EOF'
             docker pull jasonnho/devops-pso:latest
             docker rm -f devops-pso-container || true
             docker run -d -p 3000:3000 --name devops-pso-container jasonnho/devops-pso
