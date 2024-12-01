@@ -94,6 +94,6 @@ jobs:
             sudo docker pull jasonnho/devops-pso:latest
             sudo docker rm -f devops-pso-container || true
             sudo docker run --privileged -d -p 3000:3000 --name devops-pso-container jasonnho/devops-pso
+            sudo docker logs devops-pso-container
           EOF
-        env:
-          EC2_INSTANCE_PUBLIC_DNS: ${{ secrets.EC2_INSTANCE_PUBLIC_DNS }}
+
