@@ -83,9 +83,9 @@ jobs:
 
       - name: Upload SSH Key
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ec2-key.pem
-          chmod 400 "ec2-key.pem"
-          chmod 600 ec2-key.pem
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > key-pair-devopspso.pem
+          chmod 400 "key-pair-devopspso.pem"
+          chmod 600 "key-pair-devopspso.pem"
 
       - name: Deploy to EC22
         run: |
