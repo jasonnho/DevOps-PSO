@@ -1,9 +1,19 @@
 FROM node:22
 
 # Install dependencies needed for Electron
-RUN apt-get update && apt-get install \
-    git libx11-xcb1 libxcb-dri3-0 libxtst6 libnss3 libatk-bridge2.0-0 libgtk-3-0 libxss1 libasound2 libdrm2 libgbm1 \
-    -yq --no-install-suggests --no-install-recommends \
+RUN apt-get update && apt-get install -yq --no-install-suggests --no-install-recommends \
+    git \
+    libx11-xcb1 \
+    libxcb-dri3-0 \
+    libxtst6 \
+    libnss3 \
+    libatk-bridge2.0-0 \
+    libgtk-3-0 \
+    libxss1 \
+    libasound2 \
+    libdrm2 \
+    libgbm1 \
+    xvfb \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Add a non-root user
@@ -38,5 +48,6 @@ RUN chmod 4755 /custom-app/node_modules/electron/dist/chrome-sandbox
 USER custom-app
 
 EXPOSE 3000
-# Start the application
-CMD npm run start
+
+# Use xvfb-run to run the Electron application in a headless environment
+CMD xvfb-run --server-args="-screen 0 1024x768x24" npm run start
