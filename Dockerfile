@@ -18,6 +18,9 @@ RUN npm config set cache /tmp/npm-cache
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
 
+ENV ELECTRON_ENABLE_LOGGING=true
+ENV ELECTRON_RUN_AS_NODE=true
+
 # Install dependencies as root
 USER root
 RUN npm cache clean --force
