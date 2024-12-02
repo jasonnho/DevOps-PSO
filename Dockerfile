@@ -1,10 +1,8 @@
-# Base image
 FROM node:22
 
 # Install dependencies needed for Electron
 RUN apt-get update && apt-get install \
     git libx11-xcb1 libxcb-dri3-0 libxtst6 libnss3 libatk-bridge2.0-0 libgtk-3-0 libxss1 libasound2 libdrm2 libgbm1 \
-    xvfb \
     -yq --no-install-suggests --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -39,11 +37,6 @@ RUN chmod 4755 /custom-app/node_modules/electron/dist/chrome-sandbox
 # Switch back to the non-root user
 USER custom-app
 
-# Set the DISPLAY environment variable to use Xvfb
-ENV DISPLAY=:99
-
-# Expose the application port
 EXPOSE 3000
-
-# Start the application with Xvfb
-CMD Xvfb :99 -screen 0 1920x1080x24 & npm start
+# Start the application
+CMD npm run start

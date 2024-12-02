@@ -30,7 +30,7 @@ jobs:
         run: docker pull jasonnho/devops-pso:latest
       - name: Run Jest tests
         run: |
-          docker run --rm jasonnho/devops-pso:latest sh -c "npm install && npm test"
+          docker run --rm jasonnho/devops-pso:latest sh -c "xvfb-run --auto-servernum npm install && npm test"
 
   terraform:
     needs: test
@@ -90,10 +90,9 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -T -i "key-pair-devopspso.pem" ubuntu@ec2-3-27-78-30.ap-southeast-2.compute.amazonaws.com << 'EOF'
-            sudo apt update && sudo apt upgrade -y
-            sudo docker pull jasonnho/devops-pso:latest
-            sudo docker rm -f devops-pso-container || true
-            sudo docker run --privileged -d -p 3000:3000 --name devops-pso-container jasonnho/devops-pso
-            sudo docker logs devops-pso-container
+            docker pull jasonnho/devops-pso:latest
+            docker rm -f devops-pso-container || true
+            docker run -d -p 3000:3000 --name devops-pso-container jasonnho/devops-pso
+            docker logs devops-pso-container
           EOF
 
