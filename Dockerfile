@@ -41,5 +41,5 @@ RUN chmod 4755 /custom-app/node_modules/electron/dist/chrome-sandbox
 USER custom-app
 
 EXPOSE 3000
-# Start the application
+# Start the applicationn
 CMD npm run start
