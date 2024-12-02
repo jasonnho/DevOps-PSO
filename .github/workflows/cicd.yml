@@ -87,7 +87,7 @@ jobs:
           chmod 400 "key-pair-devopspso.pem"
           chmod 600 "key-pair-devopspso.pem"
 
-      - name: Deploy to EC2
+      - name: Deploy to EC22
         run: |
           ssh -o StrictHostKeyChecking=no -T -i "key-pair-devopspso.pem" ubuntu@ec2-3-27-78-30.ap-southeast-2.compute.amazonaws.com << 'EOF'
             docker pull jasonnho/devops-pso:latest
