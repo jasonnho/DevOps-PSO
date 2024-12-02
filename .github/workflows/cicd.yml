@@ -30,7 +30,7 @@ jobs:
         run: docker pull jasonnho/devops-pso:latest
       - name: Run Jest tests
         run: |
-          docker run --rm jasonnho/devops-pso:latest sh -c "xvfb-run --auto-servernum npm install && npm test"
+          docker run --rm jasonnho/devops-pso:latest sh -c "npm install && npm test"
 
   terraform:
     needs: test
