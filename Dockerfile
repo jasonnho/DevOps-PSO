@@ -37,7 +37,7 @@ USER root
 RUN chown root /custom-app/node_modules/electron/dist/chrome-sandbox
 RUN chmod 4755 /custom-app/node_modules/electron/dist/chrome-sandbox
 
-# Switch back to the non-root userr
+# Switch back to the non-root user
 USER custom-app
 
 EXPOSE 3000
