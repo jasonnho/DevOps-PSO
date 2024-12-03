@@ -41,5 +41,10 @@ RUN chmod 4755 /custom-app/node_modules/electron/dist/chrome-sandbox
 USER custom-app
 
 EXPOSE 3000
-# Start the applicationn
-CMD npm run start
+# Install xinit
+RUN apt-get update && apt-get install -y xinit && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Tambahkan skrip untuk menjalankan aplikasi dengan xinit
+RUN echo '#!/bin/sh\nnpm run start' > /custom-app/gui.sh && chmod +x /custom-app/gui.sh
+
+CMD xinit /custom-app/gui.sh
