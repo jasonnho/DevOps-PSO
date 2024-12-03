@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install \
     -yq --no-install-suggests --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install xinit
+RUN apt-get update && apt-get install -y xinit && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Add a non-root user
 RUN useradd -m -d /custom-app custom-app
 WORKDIR /custom-app
@@ -41,8 +44,6 @@ RUN chmod 4755 /custom-app/node_modules/electron/dist/chrome-sandbox
 USER custom-app
 
 EXPOSE 3000
-# Install xinit
-RUN apt-get update && apt-get install -y xinit && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Tambahkan skrip untuk menjalankan aplikasi dengan xinit
 RUN echo '#!/bin/sh\nnpm run start' > /custom-app/gui.sh && chmod +x /custom-app/gui.sh
