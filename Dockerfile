@@ -43,4 +43,4 @@ USER custom-app
 EXPOSE 3000
 
 # Start the application with xvfb
-CMD xvfb-run --server-args="-screen 0 1024x768x24" npm run start
+CMD bash -c "Xvfb :99 -screen 0 1024x768x16 & export DISPLAY=:99 && npm run start"
