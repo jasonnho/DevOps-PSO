@@ -89,12 +89,17 @@ jobs:
           chmod 400 "key-pair-devopspso.pem"
           chmod 600 "key-pair-devopspso.pem"
 
-      - name: Deploy to EC22
+      - name: Start Xvfb
+        run: |
+          Xvfb :99 -screen 0 1024x768x16 &
+          export DISPLAY=:99
+      - name: Deploy Application
         run: |
           ssh -o StrictHostKeyChecking=no -T -i "key-pair-devopspso.pem" ubuntu@ec2-3-27-78-30.ap-southeast-2.compute.amazonaws.com << 'EOF'
             docker pull jasonnho/devops-pso:latest
             docker rm -f devops-pso-container || true
-            docker run --privileged -d -p 3000:3000 --name devops-pso-container jasonnho/devops-pso
+            docker run --privileged -d -e DISPLAY=:99 -p 3000:3000 --name devops-pso-container jasonnho/devops-pso
             docker logs devops-pso-container
           EOF
+
 
