@@ -18,8 +18,9 @@ RUN npm config set cache /tmp/npm-cache
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
 
-# Set environment variables for Electron
+# Set environment variables for Electronn
 ENV ELECTRON_RUN_AS_NODE=false
+ENV ELECTRON_IS_DEV=false
 
 # Install dependencies as root
 USER root
