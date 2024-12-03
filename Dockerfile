@@ -1,13 +1,10 @@
 FROM node:22
 
-# Install dependencies needed for Electron
+# Install dependencies for Electron
 RUN apt-get update && apt-get install \
-    git libx11-xcb1 libxcb-dri3-0 libxtst6 libnss3 libatk-bridge2.0-0 libgtk-3-0 libxss1 libasound2 libdrm2 libgbm1 \
+    git libx11-xcb1 libxcb-dri3-0 libxtst6 libnss3 libatk-bridge2.0-0 libgtk-3-0 libxss1 libasound2 libdrm2 libgbm1 xvfb \
     -yq --no-install-suggests --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install xinit
-RUN apt-get update && apt-get install -y xinit && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Add a non-root user
 RUN useradd -m -d /custom-app custom-app
@@ -45,7 +42,5 @@ USER custom-app
 
 EXPOSE 3000
 
-# Tambahkan skrip untuk menjalankan aplikasi dengan xinit
-RUN echo '#!/bin/sh\nnpm run start' > /custom-app/gui.sh && chmod +x /custom-app/gui.sh
-
-CMD xinit /custom-app/gui.sh
+# Start the application with xvfb
+CMD xvfb-run --server-args="-screen 0 1024x768x24" npm run start
