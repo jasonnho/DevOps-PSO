@@ -44,7 +44,7 @@ function Item({ item }) {
 					<button
 						className={styles.delete}
 						onClick={deleteItem}
-						data-testid="add-button"
+						data-testid="delete-button"
 						tabIndex="0"
 					></button>
 				{!paused && !completed && (
