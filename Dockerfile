@@ -33,6 +33,3 @@ EXPOSE 3000
 RUN chown root /app/node_modules/electron/dist/chrome-sandbox
 RUN chmod 4755 /app/node_modules/electron/dist/chrome-sandbox
 
-
-# Run the application
-CMD ["xvfb-run", "--auto-servernum", "--server-args='-screen 0 1024x768x24'", "electron", "/app/dist/linux-unpacked/resources/app.asar", "--no-sandbox"]
