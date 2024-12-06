@@ -22,9 +22,6 @@ RUN npm install --legacy-peer-deps
 
 RUN npm run postinstall && npm run pre-electron-pack && npm run electron-pack
 
-# Copy built files from build stage
-COPY --from=build-stage /app/dist/linux-unpacked/resources /app
-
 # Install Electron globally
 RUN npm install -g electron
 
@@ -32,4 +29,4 @@ RUN npm install -g electron
 EXPOSE 3000
 
 # Run the application
-CMD ["electron", "/app/app.asar"]
+CMD ["electron", "/app/dist/linux-unpacked/resources/app.asar"]
