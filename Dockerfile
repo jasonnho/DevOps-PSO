@@ -2,7 +2,6 @@
 FROM node:18-slim
 
 # Set working directory
-RUN useradd -m -d /app node
 WORKDIR /app
 
 COPY package*.json ./
