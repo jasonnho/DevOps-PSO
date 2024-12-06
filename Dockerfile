@@ -13,6 +13,7 @@ WORKDIR /custom-app
 
 # Salin aplikasi ke dalam container
 COPY . .
+COPY package.json package-lock.json ./ 
 
 # Konfigurasi npm cache dan direktori global untuk mencegah masalah izin
 RUN npm config set cache /tmp/npm-cache
