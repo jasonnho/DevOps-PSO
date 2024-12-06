@@ -21,4 +21,4 @@ RUN chmod 4755 /app/node_modules/electron/dist/chrome-sandbox
 
 # Switch back to the non-root user
 USER node
-CMD ["npm", "run", "dev"]
+CMD ["xvfb-run", "--server-args=-screen 0 1024x768x24", "npm", "run", "dev"]
