@@ -2,6 +2,7 @@
 FROM node:18-slim
 
 # Set working directory
+RUN useradd -m -d /app node
 WORKDIR /app
 
 COPY package*.json ./
@@ -18,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \ 
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER Node
+USER node
 # Install dependencies and build production
 RUN npm install --legacy-peer-deps
 
@@ -29,10 +30,10 @@ RUN npm install -g electron
 
 # Expose ports if necessary (optional)
 EXPOSE 3000
-User Root
+User root
 RUN chown root /app/node_modules/electron/dist/chrome-sandbox
 RUN chmod 4755 /app/node_modules/electron/dist/chrome-sandbox
 
-USER Node
+USER node
 # Run the application
 CMD ["electron", "/app/dist/linux-unpacked/resources/app.asar"]
