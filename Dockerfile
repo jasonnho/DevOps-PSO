@@ -35,4 +35,4 @@ RUN chmod 4755 /app/node_modules/electron/dist/chrome-sandbox
 
 
 # Run the application
-CMD ["electron", "/app/dist/linux-unpacked/resources/app.asar"]
+CMD ["electron", "/app/dist/linux-unpacked/resources/app.asar", "--no-sandbox"]
