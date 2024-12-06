@@ -46,5 +46,5 @@ USER custom-app
 # Expose port for the application
 EXPOSE 3000
 
-# Start the application
+# Start the applicationn
 CMD npm run start
