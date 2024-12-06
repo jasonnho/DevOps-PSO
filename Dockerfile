@@ -37,5 +37,8 @@ RUN chmod 4755 /custom-app/node_modules/electron/dist/chrome-sandbox
 # Switch back to the non-root user
 USER custom-app
 
-# Start the application
-CMD npm run start
+# Set DISPLAY environment variable for X11
+ENV DISPLAY=:0
+
+# Start the application with --no-sandbox option
+CMD ["npm", "run", "dev", "--", "--no-sandbox"]

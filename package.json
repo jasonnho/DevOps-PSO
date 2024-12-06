@@ -46,7 +46,7 @@
 		"test": "cd ./src/renderer && vitest --run",
 		"postinstall": "electron-builder install-app-deps && npm run update-vendors",
 		"pre-electron-pack": "npm run build",
-		"electron-pack": "electron-builder build --dir --windows --linux --mac"
+		"electron-pack": "electron-builder build --dir --windows --linux"
 	},
 	"dependencies": {
 		"@reach/accordion": "^0.8.0",
