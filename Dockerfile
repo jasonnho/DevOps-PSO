@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \ 
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER node
+
 # Install dependencies and build production
 RUN npm install --legacy-peer-deps
 
@@ -29,10 +29,10 @@ RUN npm install -g electron
 
 # Expose ports if necessary (optional)
 EXPOSE 3000
-User root
+
 RUN chown root /app/node_modules/electron/dist/chrome-sandbox
 RUN chmod 4755 /app/node_modules/electron/dist/chrome-sandbox
 
-USER node
+
 # Run the application
 CMD ["electron", "/app/dist/linux-unpacked/resources/app.asar"]
