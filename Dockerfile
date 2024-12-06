@@ -1,4 +1,4 @@
-FROM node:22
+FROM node:18-slim
 
 # Install dependencies needed for Electron
 RUN apt-get update && apt-get install \
@@ -7,27 +7,12 @@ RUN apt-get update && apt-get install \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Add a non-root user
-RUN useradd -m -d /custom-app custom-app
-WORKDIR /custom-app
+WORKDIR /app
 COPY . .
+RUN chown -R node /app
 
-# Configure npm cache location
-RUN npm config set cache /tmp/npm-cache
-
-# Set npm global directory to avoid permission issues
-ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
-ENV PATH=$PATH:/home/node/.npm-global/bin
-
-# Install dependencies as root
-USER root
-RUN npm cache clean --force
-
-# Set ownership of the working directory and node_modules
-RUN mkdir -p /custom-app/node_modules && chown -R custom-app:custom-app /custom-app
-
-# Install npm dependencies as the non-root user
-USER custom-app
-RUN npm install
+USER node
+RUN npm install --legacy-peer-deps
 
 # Electron-specific permissions
 USER root
@@ -35,10 +20,5 @@ RUN chown root /custom-app/node_modules/electron/dist/chrome-sandbox
 RUN chmod 4755 /custom-app/node_modules/electron/dist/chrome-sandbox
 
 # Switch back to the non-root user
-USER custom-app
-
-# Set DISPLAY environment variable for X11
-ENV DISPLAY=:0
-
-# Start the application with --no-sandbox option
-CMD ["npm", "run", "dev", "--", "--no-sandbox"]
+USER node
+CMD ["npm", "run", "dev"]
