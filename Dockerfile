@@ -1,34 +1,29 @@
 # Build Stage
-FROM node:18-slim AS build-stage
-
-# Set working directory
-WORKDIR /app
-
-# Copy source code
-COPY . .
-
-RUN npm --version
-
-# Install dependencies and build production
-RUN npm install
-RUN npm run dev
-
-# Production Stage
 FROM node:18-slim
 
 # Set working directory
 WORKDIR /app
 
-# Copy built files from build stage
-COPY --from=build-stage /app/dist/linux-unpacked/resources /app
+COPY package*.json ./
+# Copy source code
+COPY . .
 
-# Install dependencies for Electron
+RUN npm --version
+
 # Install dependencies for Electron
 RUN apt-get update && apt-get install -y \
     libgtk-3-0 libnotify4 libnss3 libxss1 libasound2 \
     libxtst6 libx11-xcb-dev libdrm2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+
+# Install dependencies and build production
+RUN npm install --legacy-peer-deps
+
+RUN npm run postinstall && npm run pre-electron-pack && npm run electron-pack
+
+# Copy built files from build stage
+COPY --from=build-stage /app/dist/linux-unpacked/resources /app
 
 # Install Electron globally
 RUN npm install -g electron
