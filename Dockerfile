@@ -13,7 +13,7 @@ RUN npm --version
 # Install dependencies for Electron
 RUN apt-get update && apt-get install -y \
     libgtk-3-0 libnotify4 libnss3 libxss1 libasound2 \ 
-    libxtst6 libx11-xcb-dev libdrm2 libgbm1 \ 
+    libxtst6 libx11-xcb-dev libdrm2 libgbm1 xvfb xauth \ 
     wine64 \
     ca-certificates \ 
     && apt-get clean && rm -rf /var/lib/apt/lists/*
