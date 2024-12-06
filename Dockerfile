@@ -1,24 +1,40 @@
+# Build Stage
+FROM node:18-slim AS build-stage
+
+# Set working directory
+WORKDIR /app
+
+# Copy source code
+COPY . .
+
+RUN npm --version
+
+# Install dependencies and build production
+RUN npm install
+RUN npm run dev
+
+# Production Stage
 FROM node:18-slim
 
-# Install dependencies needed for Electron
-RUN apt-get update && apt-get install -yq \
-    git libx11-xcb1 libxcb-dri3-0 libxtst6 libnss3 libatk-bridge2.0-0 libgtk-3-0 libxss1 libasound2 libdrm2 libgbm1 xvfb xauth \
-    --no-install-suggests --no-install-recommends \
+# Set working directory
+WORKDIR /app
+
+# Copy built files from build stage
+COPY --from=build-stage /app/dist/linux-unpacked/resources /app
+
+# Install dependencies for Electron
+# Install dependencies for Electron
+RUN apt-get update && apt-get install -y \
+    libgtk-3-0 libnotify4 libnss3 libxss1 libasound2 \
+    libxtst6 libx11-xcb-dev libdrm2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Add a non-root user
-WORKDIR /app
-COPY . .
-RUN chown -R node /app
 
-USER node
-RUN npm install --legacy-peer-deps
+# Install Electron globally
+RUN npm install -g electron
 
-# Electron-specific permissions
-USER root
-RUN chown root /app/node_modules/electron/dist/chrome-sandbox
-RUN chmod 4755 /app/node_modules/electron/dist/chrome-sandbox
+# Expose ports if necessary (optional)
+EXPOSE 3000
 
-# Switch back to the non-root user
-USER node
-CMD ["xvfb-run", "--server-args=-screen 0 1024x768x24", "npm", "run", "dev"]
+# Run the application
+CMD ["electron", "/app/app.asar"]
