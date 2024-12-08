@@ -81,7 +81,7 @@ jobs:
       - name: Pull image from docker hub
         run: docker pull jasonnho/devops-pso:latest
 
-        - name: Upload SSH Key
+      - name: Upload SSH Key
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > key-pair-devopspso.pem
           chmod 400 "key-pair-devopspso.pem"
