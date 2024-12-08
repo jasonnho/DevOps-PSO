@@ -2,7 +2,7 @@ FROM node:22 as builder
 
 WORKDIR /app
 COPY package*.json ./
-RUN  npm install --production
+RUN npm install --production --legacy-peer-deps
 COPY . .
 RUN npm run build
 
