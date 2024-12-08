@@ -3,7 +3,7 @@ import { render, fireEvent } from "@testing-library/react";
 import { format } from "date-fns";
 import App from "./App.jsx";
 
-// Tes tanggal, bulan, tahun, dan hari dalam TodoDate
+// Tes tanggal, bulan, tahun, dan hari dalam TodoDater
 test("renders the day of the month", () => {
   const { getByText } = render(<App />);
   const linkElement = getByText(format(new Date(), "d"));
