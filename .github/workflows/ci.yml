@@ -22,7 +22,7 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies for Linting
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Run ESLint
         run: npm run lint
@@ -41,7 +41,7 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies for Testing
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Execute Unit Tests
         run: npm test
