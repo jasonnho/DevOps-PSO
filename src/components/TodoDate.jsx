@@ -1,4 +1,4 @@
-import { useAppState } from "../AppContext.jsx";
+import { useAppState } from "../AppContext";
 import useDateCheck from "../hooks/useDateCheck.js";
 import styles from "./TodoDate.module.css";
 

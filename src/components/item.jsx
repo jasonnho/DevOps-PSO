@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useAppReducer } from "../AppContext.jsx";
+import { useAppReducer } from "../AppContext";
 import styles from "./Item.module.css";
 
 // Individual todo item
