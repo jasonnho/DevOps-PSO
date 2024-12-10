@@ -1,0 +1,70 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - dev
+  push:
+    branches:
+      - dev
+
+jobs:
+  lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies for Linting
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+  unit-test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies for Testing
+        run: npm ci
+
+      - name: Execute Unit Tests
+        run: npm test
+
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: unit-test
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t jasonnho/devops-pso .
+
+  integration-test:
+    name: Run Integration Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Pull Docker Image
+        run: docker pull jasonnho/devops-pso
+
+      - name: Run Integration Tests in Docker
+        run: |
+          docker run --rm jasonnho/devops-pso sh -c "npm install --legacy-peer-deps && npm test"

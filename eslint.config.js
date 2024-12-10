@@ -1,8 +1,9 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+import js from '@eslint/js';
+import globals from 'globals';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import security from 'eslint-plugin-security'; // Import security plugin
 
 export default [
   { ignores: ['dist'] },
@@ -17,7 +18,7 @@ export default [
         expect: 'readonly',
         beforeEach: 'readonly',
         afterEach: 'readonly',
-        vi: 'readonly', 
+        vi: 'readonly',
       },
       parserOptions: {
         ecmaVersion: 'latest',
@@ -30,6 +31,7 @@ export default [
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      security, // Add the security plugin
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -41,6 +43,8 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      // Add security plugin rules
+      ...security.configs.recommended.rules,
     },
   },
-]
+];
