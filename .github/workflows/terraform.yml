@@ -1,9 +1,7 @@
 name: Infrastructure Provisioning
 
 on:
-   push:
-    branches:
-      - dev
+  workflow_dispatch: # Trigger manual
 
 jobs:
   terraform:
