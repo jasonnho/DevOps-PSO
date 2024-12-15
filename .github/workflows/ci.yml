@@ -56,7 +56,7 @@ jobs:
 
       - name: Build Docker Image
         run: docker build -t jasonnho/devops-pso .
-
+        
   integration-test:
     name: Run Integration Tests
     runs-on: ubuntu-latest
