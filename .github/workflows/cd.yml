@@ -19,12 +19,16 @@ jobs:
       - name: Pull Docker Image
         run: docker pull jasonnho/devops-pso:latest
 
-      - name: Deploy to EC2
+      - name: Upload SSH Key
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > key-pair-devopspso.pem
-          chmod 400 key-pair-devopspso.pem
+          chmod 400 "key-pair-devopspso.pem"
+          chmod 600 "key-pair-devopspso.pem"
+
+      - name: Deploy to EC2
+        run: |
           ssh -o StrictHostKeyChecking=no -i key-pair-devopspso.pem ubuntu@${{ secrets.EC2_INSTANCE_PUBLIC_DNS }} << 'EOF'
             docker pull jasonnho/devops-pso:latest
             docker rm -f devops-pso-container || true
-            docker run -d -p 3000:3000 --name devops-pso-container jasonnho/devops-pso:latest
+            docker run -d -p 3000:3000 --name devops-pso-container jasonnho/devops-pso
           EOF
