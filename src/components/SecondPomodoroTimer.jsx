@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './SecondPomodoroTimer.module.css';
 
-function SecondPomodoroTimer({ initialTime, onComplete, onPause }) {
-  const [timeLeft, setTimeLeft] = useState(initialTime || 300); // Default to 5 minutes
+function SecondPomodoroTimer({ initialTime, onComplete }) {
+  const [timeLeft, setTimeLeft] = useState(initialTime || 300); 
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
@@ -15,9 +15,11 @@ function SecondPomodoroTimer({ initialTime, onComplete, onPause }) {
       return () => clearInterval(interval);
     } else if (timeLeft === 0) {
       setIsRunning(false);
-      onComplete(); // Notify parent when the timer finishes
+      if (onComplete) {
+        onComplete();
+      }
     }
-  }, [isRunning, timeLeft]);
+  }, [isRunning, timeLeft, onComplete]);
 
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -37,7 +39,6 @@ function SecondPomodoroTimer({ initialTime, onComplete, onPause }) {
 SecondPomodoroTimer.propTypes = {
   initialTime: PropTypes.number,
   onComplete: PropTypes.func.isRequired,
-  onPause: PropTypes.func.isRequired,
 };
 
 export default SecondPomodoroTimer;
