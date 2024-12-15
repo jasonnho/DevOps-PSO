@@ -3,7 +3,7 @@ import { vi } from 'vitest';
 import Item from './item';
 import { useAppReducer } from '../AppContext';
 
-vi.mock('../AppContext', () => ({
+vi.mock('../AppContext.jsx', () => ({
   useAppReducer: vi.fn(),
 }));
 
@@ -49,18 +49,13 @@ describe('Item Component', () => {
   it('dispatches UPDATE_ITEM with pending status when resume button is clicked', () => {
     const pausedItem = { ...item, status: 'paused' };
     const { getByLabelText } = render(<Item item={pausedItem} />);
-    const resumeButton = getByLabelText('Resume');
+    const resumeButton = getByLabelText('Resume item');
     
     fireEvent.click(resumeButton);
-  
-    expect(dispatchMock).toHaveBeenCalledWith(
-      expect.objectContaining({ 
-        type: 'UPDATE_ITEM', 
-        item: expect.objectContaining({ 
-          ...pausedItem, 
-          status: 'pending' 
-        }) 
-      })
-    );
+
+    expect(dispatchMock).toHaveBeenCalledWith({ 
+      type: 'UPDATE_ITEM', 
+      item: { ...pausedItem, status: 'pending' } 
+    });
   });
-}); 
+});

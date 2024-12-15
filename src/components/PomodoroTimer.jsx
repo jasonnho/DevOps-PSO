@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './PomodoroTimer.module.css';
 
-function PomodoroTimer({ initialTime, onPause }) {
+function PomodoroTimer({ initialTime, onComplete, onPause }) {
   const [timeLeft, setTimeLeft] = useState(initialTime || 1500); // Default to 25 minutes
   const [isRunning, setIsRunning] = useState(false);
 
@@ -15,11 +15,9 @@ function PomodoroTimer({ initialTime, onPause }) {
       return () => clearInterval(interval);
     } else if (timeLeft === 0) {
       setIsRunning(false);
-      if (onPause) {
-        onPause(300); 
-      }
+      onPause(300); // Reset timer to 5 minutes (300 seconds) and move item to "Do Later"
     }
-  }, [isRunning, timeLeft, onPause]);
+  }, [isRunning, timeLeft]);
 
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -38,6 +36,7 @@ function PomodoroTimer({ initialTime, onPause }) {
 
 PomodoroTimer.propTypes = {
   initialTime: PropTypes.number,
+  onComplete: PropTypes.func.isRequired,
   onPause: PropTypes.func.isRequired,
 };
 
