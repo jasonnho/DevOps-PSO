@@ -1,0 +1,23 @@
+.timer {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color, #ffffff);
+    margin: 10px 0;
+    text-align: center;
+  }
+  
+  button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    background-color: var(--button-bg, #eee);
+    color: var(--button-color, #333);
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: var(--button-hover-bg, #ddd);
+  }
+  

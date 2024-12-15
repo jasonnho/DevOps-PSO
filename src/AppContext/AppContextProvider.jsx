@@ -46,6 +46,30 @@ const appStateReducer = (state, action) => {
       saveState(newState);
       return newState;
     }
+    case 'START_TIMER': {
+      const newItems = state.items.map((i) =>
+        i.key === action.item.key ? { ...i, status: 'pending', timer: 1500 } : i // Set timer to 25 minutes (1500 seconds)
+      );
+      const newState = { ...state, items: newItems };
+      saveState(newState);
+      return newState;
+    }
+    case 'UPDATE_TIMER': {
+      const newItems = state.items.map((i) =>
+        i.key === action.item.key ? { ...i, timer: action.timer } : i
+      );
+      const newState = { ...state, items: newItems };
+      saveState(newState);
+      return newState;
+    }
+    case 'STOP_TIMER': {
+      const newItems = state.items.map((i) =>
+        i.key === action.item.key ? { ...i, status: 'paused' } : i
+      );
+      const newState = { ...state, items: newItems };
+      saveState(newState);
+      return newState;
+    }    
     default:
       return state;
   }

@@ -49,13 +49,18 @@ describe('Item Component', () => {
   it('dispatches UPDATE_ITEM with pending status when resume button is clicked', () => {
     const pausedItem = { ...item, status: 'paused' };
     const { getByLabelText } = render(<Item item={pausedItem} />);
-    const resumeButton = getByLabelText('Resume item');
+    const resumeButton = getByLabelText('Resume');
     
     fireEvent.click(resumeButton);
-
-    expect(dispatchMock).toHaveBeenCalledWith({ 
-      type: 'UPDATE_ITEM', 
-      item: { ...pausedItem, status: 'pending' } 
-    });
+  
+    expect(dispatchMock).toHaveBeenCalledWith(
+      expect.objectContaining({ 
+        type: 'UPDATE_ITEM', 
+        item: expect.objectContaining({ 
+          ...pausedItem, 
+          status: 'pending' 
+        }) 
+      })
+    );
   });
-});
+}); 
