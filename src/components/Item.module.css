@@ -111,3 +111,50 @@
 		}
 	}
 }
+
+.priorityToggle {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 1.2rem;
+	margin-right: 10px;
+}
+
+.priorityDropdown {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.greenFlag,
+.orangeFlag,
+.redFlag {
+	border: none;
+	background: none;
+	cursor: pointer;
+	font-size: 1.2rem;
+	padding: 5px;
+}
+
+.greenFlag:hover {
+	background-color: #d4f8e8;
+}
+
+.orangeFlag:hover {
+	background-color: #ffe8cc;
+}
+
+.redFlag:hover {
+	background-color: #ffd6d6;
+}
+
+
+.priorityIndicator {
+	margin-right: 10px;
+	font-size: 1.2rem;
+}
+
