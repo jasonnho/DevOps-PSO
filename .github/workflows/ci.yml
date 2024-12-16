@@ -73,7 +73,11 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
-      
+
+      - name: Install Trivy CLI
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+
       - name: Clear Trivy Cache
         run: trivy image --clear-cache
 
