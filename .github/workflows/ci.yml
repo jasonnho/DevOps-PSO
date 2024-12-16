@@ -73,6 +73,9 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
+      
+      - name: Clear Trivy Cache
+        run: trivy image --clear-cache
 
       - name: Set Up Trivy
         uses: aquasecurity/trivy-action@0.28.0
