@@ -3,10 +3,10 @@ name: Continuous Integration
 on:
   pull_request:
     branches:
-      - dev
+      - dev3
   push:
     branches:
-      - dev
+      - dev3
 
 jobs:
   lint:
@@ -56,7 +56,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t jasonnho/devops-pso .
+          docker build --no-cache -t jasonnho/devops-pso .
           docker tag jasonnho/devops-pso jasonnho/devops-pso:latest
 
       - name: Log in to Docker Hub
@@ -65,3 +65,20 @@ jobs:
       - name: Push Docker Image to Docker Hub
         run: |
           docker push jasonnho/devops-pso:latest
+
+  scan:
+    name: Scan Docker Image with Trivy
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: jasonnho/devops-pso:latest
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          format: table
+          exit-code: 1
