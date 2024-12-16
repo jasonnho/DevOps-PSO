@@ -46,6 +46,17 @@ const appStateReducer = (state, action) => {
       saveState(newState);
       return newState;
     }
+    case "UPDATE_PRIORITY": {
+      const newItems = state.items.map((i) => {
+        if (i.key === action.item.key) {
+          return { ...i, priority: action.item.priority };
+        }
+        return i;
+      });
+      const newState = { ...state, items: newItems };
+      saveState(newState);
+      return newState;
+    }
     default:
       return state;
   }
