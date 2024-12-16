@@ -3,7 +3,7 @@ import { vi } from 'vitest';
 import Item from './item';
 import { useAppReducer } from '../AppContext';
 
-vi.mock('../AppContext.jsx', () => ({
+vi.mock('../AppContext', () => ({
   useAppReducer: vi.fn(),
 }));
 
@@ -12,7 +12,7 @@ describe('Item Component', () => {
 
   beforeEach(() => {
     dispatchMock = vi.fn();
-    useAppReducer.mockReturnValue(dispatchMock);
+    useAppReducer.mockReturnValue(dispatchMock); // Ensure this returns the correct structure
   });
 
   afterEach(() => {
