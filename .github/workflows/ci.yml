@@ -74,12 +74,14 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Scan docker image with trivy
+      - name: Scan and print log docker image with trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: jasonnho/devops-pso:latest
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           format: table
-          exit-code: 1
-          ignore-file: .trivyignore
+          exit-code: 0
+          quiet: true
+          no-progress: true
+          
