@@ -74,14 +74,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Install Trivy CLI
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
-
-      - name: Clear Trivy Cache
-        run: trivy image --clear-cache
-
-      - name: Set Up Trivy
+      - name: Scan docker image with trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: jasonnho/devops-pso:latest
@@ -89,3 +82,4 @@ jobs:
           ignore-unfixed: true
           format: table
           exit-code: 1
+          ignore-file: .trivyignore
