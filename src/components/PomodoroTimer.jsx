@@ -11,15 +11,13 @@ function PomodoroTimer({ initialTime, onPause }) {
       const interval = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000);
-
+  
       return () => clearInterval(interval);
     } else if (timeLeft === 0) {
       setIsRunning(false);
-      if (onPause) {
-        onPause(300); 
-      }
+      onPause(300); // Reset timer to 5 minutes (300 seconds) and move item to "Do Later"
     }
-  }, [isRunning, timeLeft, onPause]);
+  }, [isRunning, timeLeft, onPause]); // Tambahkan onPause di sini
 
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
