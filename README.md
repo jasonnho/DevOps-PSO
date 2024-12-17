@@ -1,14 +1,19 @@
 # Todometer
-Todometer is a simple task management application built using Electron and Node.js. It provides a user interface for adding, updating, reading, and deleting tasks. This is a basic CRUD application that helps users efficiently manage their task lists.
+Todometer is a simple task management application built using Node.js. It provides an intuitive interface for users to add, update, view, and delete tasks, offering a straightforward CRUD (Create, Read, Update, Delete) experience to efficiently manage task lists.
+
+Developed By
+- Jason Ho
+- Fresnel Siregar
+- I Gusti Ngurah Adhya Pradipta
 
 ## Tools
-- GitHub Actions: Automates workflows and CI/CD pipelines.
-- Docker: A platform for packaging applications into Docker containers for easy deployment.
-- Terraform: A tool for infrastructure as code, used to set up and manage cloud resources.
-- AWS: Cloud infrastructure used to host and manage the application.
-- Vitest: A testing framework for unit and integration tests in JavaScript projects.
-- Prometheus: A monitoring tool that collects metrics from the deployed application.
-- Grafana: A visualization tool used to display the metrics collected by Prometheus for real-time monitoring.
+- GitHub Actions: Automates workflows and CI/CD pipelines for streamlined development processes.
+- Docker: A platform that packages the application into containers, ensuring consistency across various environments and simplifying deployment.
+- Terraform: An infrastructure-as-code tool for provisioning and managing cloud resources in a scalable and automated manner.
+- AWS: A cloud platform used to host and manage the application infrastructure.
+- Vitest: A modern testing framework for unit and integration tests in JavaScript projects.
+- Log Trivy: Integrated within the CI/CD pipeline, Trivy is used to scan for security vulnerabilities in the application's code and dependencies.
+- Log CloudWatch: Monitors the operational performance of the application and infrastructure running on AWS, providing real-time insights into system health and behavior.
 
 
 ## Installation
@@ -28,13 +33,4 @@ To show the Electron application window with your current build:
 
 ```bash
 $ npm run dev
-```
-
-To build a production version:
-
-```bash
-$ npm install
-$ npm run postinstall
-$ npm run pre-electron-pack
-$ npm run electron-pack
 ```
