@@ -1,8 +1,12 @@
 FROM node:20-alpine3.18 as builder
 WORKDIR /app
 
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm install --legacy-peer-deps
+
+# Clean npm cache and install exact dependencies
+RUN npm cache clean --force
+RUN npm ci
 
 # Copy the rest of the application code
 COPY . .
