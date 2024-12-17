@@ -11,6 +11,7 @@ Developed By
 - Docker: A platform that packages the application into containers, ensuring consistency across various environments and simplifying deployment.
 - Terraform: An infrastructure-as-code tool for provisioning and managing cloud resources in a scalable and automated manner.
 - AWS: A cloud platform used to host and manage the application infrastructure.
+- ESLint: A static code analysis tool used to identify and fix problems in the code, ensuring adherence to coding standards and best practices.
 - Vitest: A modern testing framework for unit and integration tests in JavaScript projects.
 - Log Trivy: Integrated within the CI/CD pipeline, Trivy is used to scan for security vulnerabilities in the application's code and dependencies.
 - Log CloudWatch: Monitors the operational performance of the application and infrastructure running on AWS, providing real-time insights into system health and behavior.
@@ -29,7 +30,7 @@ $ git clone https://github.com/jasonnho/DevOps-PSO.git
 $ cd todometer && npm install
 ```
 
-To show the Electron application window with your current build:
+To run the application in development mode:
 
 ```bash
 $ npm run dev
