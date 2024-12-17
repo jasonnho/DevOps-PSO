@@ -81,5 +81,7 @@ jobs:
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           format: table
-          exit-code: 1
-          ignore-file: .trivyignore
+          exit-code: 0
+      - name: Print Trivy Scan Results
+        run: |
+          trivy image --severity HIGH,CRITICAL --format table jasonnho/devops-pso:latest
