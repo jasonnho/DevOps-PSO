@@ -14,6 +14,7 @@
     },
     "dependencies": {
         "@reach/accordion": "^0.18.0",
+        "cross-spawn": "^7.0.5",
         "date-fns": "^4.1.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1"
