@@ -74,7 +74,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Scan docker image with trivy
+      - name: Scan and print log docker image with trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: jasonnho/devops-pso:latest
@@ -85,6 +85,3 @@ jobs:
           quiet: true
           no-progress: true
           
-      - name: Print Trivy Scan Results
-        run: |
-          trivy image --severity HIGH,CRITICAL --format table jasonnho/devops-pso:latest
