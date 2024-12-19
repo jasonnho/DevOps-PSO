@@ -6,6 +6,8 @@ Developed By
 - Fresnel Siregar
 - I Gusti Ngurah Adhya Pradipta
 
+Full Project Documentation : https://its.id/m/PSO-12-Docs
+
 ## Tools
 - GitHub Actions: Automates workflows and CI/CD pipelines for streamlined development processes.
 - Docker: A platform that packages the application into containers, ensuring consistency across various environments and simplifying deployment.
