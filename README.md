@@ -29,7 +29,7 @@ $ git clone https://github.com/jasonnho/DevOps-PSO.git
 - Go to the project directory and install dependencies:
 
 ```bash
-$ cd todometer && npm install
+$ cd DevOps-PSO && npm install
 ```
 
 To run the application in development mode:
